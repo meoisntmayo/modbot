@@ -19,7 +19,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
-bot = commands.Bot(command_prefix='ploice!', intents=intents)
+bot = commands.Bot(command_prefix='boss!', intents=intents)
 tree = bot.tree
 
 bot.session = None
@@ -62,7 +62,7 @@ def convert_time_to_seconds(time_str):
 async def on_ready():
     await bot.tree.sync()  # Synchronize the commands with Discord
     bot.session = aiohttp.ClientSession()
-    print(f"yiur bto is runnign :3")
+    print(f"haiiii :3")
 
 @bot.hybrid_command(name="speak", description="says something")
 @app_commands.describe(message="what to says")
@@ -75,26 +75,26 @@ async def speak(ctx: commands.Context, message: str):
 @bot.hybrid_command(name="ping", description="tests roundtrip latency")
 async def ping(ctx: commands.Context):
     try:
-        await ctx.send(f"<:neocat_police:1366561652870217759> Pong!! neocat brain has a latency of {round(bot.latency *1000)} ms")
+        await ctx.send(f"pong :3 brain delay of {round(bot.latency *1000)} ms")
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-@bot.hybrid_command(name="info", description="about this bot")
+@bot.hybrid_command(name="info", description="shows info (crazy)")
 async def info(ctx: commands.Context):
     embed = discord.Embed(
-        title="About NeoCat Police",
-        description="`NeoCat Police` (formerly called ctqa ploice) is a clone of @milenakos' 'Cat police' bot, specifically for Cat Stand. Both bots function very similarly, but with some changes, such as NeoCat Police lacking Cat Bot statistics commands, not being hard coded for Cat Stand, and adding a few more features. NeoCat Police is inspired by tema5002's Cat Bot clone called `ctqa bto`, a clone of Cat Bot written in C# that is no longer online, hence the name \"ctqa ploice\"",
-        color=discord.Color.blue()
+        title="About the Boss",
+        description="Moderation bot, special made for Dog Mafia."
+  color=discord.Color.blue()
     )
-    embed.set_footer(text="NeoCat Police v1.2.0")
+    embed.set_footer(text="baiii :3")
     try:
         await ctx.send(embed=embed)
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-@bot.hybrid_command(name="tip", description="unexpected tip")
+@bot.hybrid_command(name="tip", description="not money")
 async def info(ctx: commands.Context):
-    tips = ["NeoCat Police was developed with the help of stella showing me the commands", "this bot is inspired by ctqa bto", "this bot allows for your server having its own yapping city", "ctqa bto has a planned C rewrite", "this bot is made of 74% ai slop", "i eat sand", "this bot has its own AI that is sometimes offline", "bird used to have moderation commands, but they sucked.", "unlike real cat police, NeoCat Police can be used in your own servers.", "this bot allows for an unlimited amount of starboards", "NeoCat Police is made in python using discord.py", "mari2 created NeoCat Police", "NeoCat Police has message logging", "yapping cities in NeoCat Police actually send the post author deleted images, unlike the real Cat Police after the update"]
+    tips = ["BUGS WILL ATTACK", "I rob orphans daily", "canonically I am multilingual, speaking English, Spanish, Italian, and Serbian. Unfortunately coder is too stupid to do thar in the bot", "pipe bomb", "this bot is made of 74% ai slop", "item asylum is way more interesting", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "meo was here", "robs you", "skibidi toilet ended my 5 year long relationship", "the game", "i ate 37 homeless people because I thought they were watermelons", "there's no actual tips here, you can stop running the command", "incoherent screaming"]
     try:
         await ctx.send("<:tips:1365575538986450996> "+random.choice(tips))
     except Exception as e:
@@ -112,7 +112,7 @@ def query_ollama(prompt):
     try:
         response = requests.post(url, json=data, stream=True)
     except Exception as e:
-        response = f"AI Unavailable"
+        response = f"who even you (broken rn)"
         return response
     if response.status_code == 200:
         full_response = ""
@@ -135,11 +135,11 @@ def query_ollama(prompt):
     else:
         return f"Error: {response.status_code}, {response.text}"
 
-@bot.hybrid_command(name="ban", description="yeet but harder")
+@bot.hybrid_command(name="ban", description="banana no apple peal")
 @discord.app_commands.default_permissions(ban_members=True)
-@app_commands.describe(user="the nerd to yeet")
-@app_commands.describe(reason="reason (e.g. memes in general)")
-async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reason provided", appeal: truefalse = "yes"):
+@app_commands.describe(user="who need bye")
+@app_commands.describe(reason="why who needs bye")
+async def ban(ctx: commands.Context, user: discord.User, reason: str = "lol get rekd or something loser (no reason provided)", appeal: truefalse = "yes"):
     db = load_db()
     guild_id = str(ctx.guild.id)
     mod_roles = db.get(guild_id, {}).get("mod_roles", {})
@@ -149,19 +149,19 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reaso
     async def get_appeal_message():
         appeal_info = db.get(guild_id, {})
         if appeal != "yes":
-            return "you can't appeal this ban."
+            return "you can't appeal this ban bozo L"
         server_id = appeal_info.get("appeal_server")
         if server_id:
             try:
                 appeal_guild = bot.get_guild(int(server_id))
                 if appeal_guild and appeal_guild.text_channels:
                     invite = await appeal_guild.text_channels[0].create_invite(max_age=3600, max_uses=1, unique=True, reason="ban appeal link")
-                    return f"If you think this was unfair, you can appeal here: {invite.url}"
+                    return f"if you think we made a mistake or something feel free to appeal here: {invite.url} no unban promises"
             except Exception as e:
                 print(f"Failed to create appeal invite: {e}")
-        return appeal_info.get("appeal_message", "you can't appeal this ban.")
+        return appeal_info.get("appeal_message", "you can't appeal this ban bozo L")
 
-    confirm_button = discord.ui.Button(label="Confirm", style=discord.ButtonStyle.secondary)
+    confirm_button = discord.ui.Button(label="r yoy sure", style=discord.ButtonStyle.secondary)
 
     async def confirm_button_callback(interaction: discord.Interaction):
         if interaction.user != ctx.author:
@@ -177,12 +177,12 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reaso
 
         if not is_mod:
             await interaction.response.edit_message(
-                content=f"<@{ctx.author.id}> is trying to ban <@{user.id}> for `{reason}`.\nThey need a confirmation from a higher-up staff member.",
+                content=f"<@{ctx.author.id}> is trying to ban <@{user.id}> for `{reason}`.\nThey need a confirmation from a higher-up staff member because they are a LOSER lmaooooooo L BOZO",
                 view=None
             )
 
             approval_view = discord.ui.View()
-            approve_button = discord.ui.Button(label="Approve Ban", style=discord.ButtonStyle.danger)
+            approve_button = discord.ui.Button(label="yeah sure go for it", style=discord.ButtonStyle.danger)
 
             async def approve_button_callback(approval_interaction: discord.Interaction):
                 approver = approval_interaction.user
@@ -194,12 +194,12 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reaso
                 )
 
                 if not approver_is_mod:
-                    await approval_interaction.response.send_message("403 forbidden (you can't approve this)", ephemeral=True)
+                    await approval_interaction.response.send_message("403 forbidden (you can't approve this lol)", ephemeral=True)
                     return
 
                 try:
                     appeal_message = await get_appeal_message()
-                    await user.send(f"hello nerd you might have been banned from {ctx.guild.name} for `{reason}`. {appeal_message}")
+                    await user.send(f"hi bozo you have been banned from {ctx.guild.name} for `{reason}`. {appeal_message}. do better next time lmao")
                 except Exception as e:
                     print(f"Failed to send DM: {e}")
 
@@ -219,7 +219,7 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reaso
 
         try:
             appeal_message = await get_appeal_message()
-            await user.send(f"hello nerd you might have been banned from {ctx.guild.name} for `{reason}`. {appeal_message}")
+            await user.send(f"hi bozo you have been banned from {ctx.guild.name} for `{reason}`. {appeal_message}. do better next time lmao")
         except Exception as e:
             print(f"Failed to send DM: {e}")
 
@@ -237,7 +237,7 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reaso
     view.add_item(confirm_button)
 
     try:
-        await ctx.send(f"Banning {user.mention}?", view=view)
+        await ctx.send(f"banning {user.mention}? (they cant come back legally)", view=view)
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
@@ -245,11 +245,11 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "No reaso
 @ban.error
 async def ban_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("403 forbidden (you can't even ask for a ban)", ephemeral=True)
+        await ctx.send("403 forbidden (you can't even ask for a ban LMAOOOOO)", ephemeral=True)
     else:
         raise error
 
-@bot.hybrid_command(name="appeal", description="how did we get here")
+@bot.hybrid_command(name="appeal", description="whar")
 @commands.has_permissions(manage_guild=True)
 @discord.app_commands.default_permissions(manage_guild=True)
 @app_commands.describe(appeal="how the fuck do you appeal")
