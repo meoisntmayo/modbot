@@ -308,14 +308,14 @@ async def appeals_configure(ctx: commands.Context, main_server_id: str):
 
     if not main_member.guild_permissions.administrator:
         try:
-            await ctx.send("You must have admin in **main server**, dumbass")
+            await ctx.send("you gotta have admin in main server bozo")
         except Exception as e:
             await ctx.channel.send(f"504 internal server error\n-# {e}")
         return
 
     if not ctx.author.guild_permissions.administrator:
         try:
-            await ctx.send("You must also have admin in this (appeals) server.")
+            await ctx.send("you must also have admin in this server")
         except Exception as e:
             await ctx.channel.send(f"504 internal server error\n-# {e}")
         return
@@ -336,11 +336,11 @@ async def appeals_configure(ctx: commands.Context, main_server_id: str):
 
     await log_action(main_guild, f"📥 {ctx.guild.name} is now the appeals server for `{main_guild.name}`, set by {ctx.author.mention}.")
     try:
-        await ctx.send(f"✅ Linked: this server will now handle appeals for `{main_guild.name}`.")
+        await ctx.send(f"this server will now handle appeals for `{main_guild.name}`")
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-@bot.hybrid_command(name="accept", description="Accept an appeal request and unban the user.")
+@bot.hybrid_command(name="accept", description="accept an appeal request and give em a second chance.")
 @discord.app_commands.default_permissions(kick_members=True)
 @app_commands.describe(user="The appealing user to accept")
 @app_commands.describe(reason="Reason for accepting their appeal")
@@ -374,9 +374,9 @@ async def accept(ctx: commands.Context, user: discord.User, reason: str = "No re
 
     # Try to unban
     try:
-        await main_guild.unban(user, reason=f"Appeal accepted: {reason}")
+        await main_guild.unban(user, reason=f"appeal accepted!!!! {reason}")
     except discord.NotFound:
-        await ctx.reply("User was not banned in the main server.")
+        await ctx.reply("user was not banned in the main server wtf are you doing")
     except Exception as e:
         await ctx.reply(f"Unban failed: {e}")
         return
@@ -389,13 +389,13 @@ async def accept(ctx: commands.Context, user: discord.User, reason: str = "No re
         return
 
     # Send reply and log
-    await log_action(main_guild, f"<@{user.id}>'s appeal was accepted by <@{ctx.author.id}> with the reason `{reason}`.")
+    await log_action(main_guild, f"<@{user.id}>'s appeal was accepted by <@{ctx.author.id}> because`{reason}`.")
     try:
-        await ctx.reply(f"<@{user.id}>'s appeal was accepted by <@{ctx.author.id}> with the reason `{reason}`.")
+        await ctx.reply(f"<@{user.id}>'s appeal was accepted by <@{ctx.author.id}> because `{reason}`.")
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-@bot.hybrid_command(name="deny", description="Deny an appeal request and kick the user.")
+@bot.hybrid_command(name="deny", description="GET OUUTTTTTTTTT")
 @discord.app_commands.default_permissions(kick_members=True)
 @app_commands.describe(user="The appealing user to deny")
 @app_commands.describe(reason="Reason for denying their appeal")
@@ -417,7 +417,7 @@ async def deny(ctx: commands.Context, user: discord.User, reason: str = "No reas
     # DM the user
     try:
         await user.send(
-            f"hi nerd your appeal in `{main_guild.name}` was denied for `{reason}`. cya never."
+            f"hi bozo your appeal in `{main_guild.name}` was denied for `{reason}`. lol imagine"
         )
     except Exception as e:
         await ctx.reply(f"Failed to DM user: {e}")
