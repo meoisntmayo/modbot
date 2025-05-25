@@ -72,7 +72,7 @@ async def speak(ctx: commands.Context, message: str):
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-@bot.hybrid_command(name="ping", description="geys ping!!!!")
+@bot.hybrid_command(name="ping", description="gets ping!!!!")
 async def ping(ctx: commands.Context):
     try:
         await ctx.send(f"pong :3 brain delay of {round(bot.latency *1000)} ms")
