@@ -94,9 +94,10 @@ async def info(ctx: commands.Context):
 
 @bot.hybrid_command(name="tip", description="not money")
 async def info(ctx: commands.Context):
-    tips = ["BUGS WILL ATTACK", "I rob orphans daily", "canonically I am multilingual, speaking English, Spanish, Italian, and Serbian. Unfortunately coder is too stupid to do thar in the bot", "pipe bomb", "this bot is made of 74% ai slop", "item asylum is way more interesting", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "meo was here", "robs you", "skibidi toilet ended my 5 year long relationship", "the game", "i ate 37 homeless people because I thought they were watermelons", "there's no actual tips here, you can stop running the command", "incoherent screaming"]
+    tips = ["BUGS WILL ATTACK🪰🪰🪰🪰🪰🪰🪰🪰🪰🪲🪲🪲🪰🪲🪰🪲🪰🪲🪰🪲🪰🪲🪰🪲🪰🐜‼️‼️‼ ️‼️THROW YOUR PHONE OUT THE WINDOW OR IT WILL EXPLODE‼️‼️‼️✅✅✅🈯️🈯️🔇🔇🔕 🔕🟩▫️©➖❗️🖇🔥🔥💥🔥💥🔥🔥💥🔥🔥💥💥BUGS WILL ATTACK🪰🪰🪰🪰🪰🪰🪰🪰🪰 🪲🪲🪲🪰🪲🪰🪲🪰🪲🪰🪲🪰🪲🪰🐜‼️‼️‼️‼️THROW OUT PUT YOUR PHONE OUT THE WINDOW OR IT WILL EXPLODE‼️‼️‼️✅✅✅", "I rob orphans daily", "canonically I am multilingual, speaking English, Spanish, Italian, and Serbian. Unfortunately coder is too stupid to do thar in the bot", "pipe bomb", "this bot is made of 74% ai slop", "item asylum is way more interesting", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "meo was here", "robs you", "skibidi toilet ended my 5 year long relationship", "the game", "i ate 37 homeless people because I thought they were watermelons", "there's no actual tips here, you can stop running the command", "incoherent screaming"]
+    emoji = ["<a:anistar_red:1370818130502221925>︱", "<a:anistar_orange:1370818231350071426>︱", "<a:anistar_yellow:1370818280394330193>︱", "<a:anistar_green:1370818329014440028>︱", "<a:anistar_blue:1370818376103886971>︱", "<a:anistar_purple:1370818424057630842>︱"]
     try:
-        await ctx.send("<:tips:1365575538986450996> "+random.choice(tips))
+        await ctx.send(random.choice(emoji)+random.choice(tips))
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
