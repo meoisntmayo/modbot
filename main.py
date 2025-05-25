@@ -19,7 +19,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
-bot = commands.Bot(command_prefix='boss!', intents=intents)
+bot = commands.Bot(command_prefix='robert!', intents=intents)
 tree = bot.tree
 
 bot.session = None
@@ -64,7 +64,7 @@ async def on_ready():
     bot.session = aiohttp.ClientSession()
     print(f"haiiii :3")
 
-@bot.hybrid_command(name="speak", description="says something")
+@bot.hybrid_command(name="speak", description="makes robbert say something")
 @app_commands.describe(message="what to says")
 async def speak(ctx: commands.Context, message: str):
     try:
@@ -72,7 +72,7 @@ async def speak(ctx: commands.Context, message: str):
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-@bot.hybrid_command(name="ping", description="tests roundtrip latency")
+@bot.hybrid_command(name="ping", description="geys ping!!!!")
 async def ping(ctx: commands.Context):
     try:
         await ctx.send(f"pong :3 brain delay of {round(bot.latency *1000)} ms")
@@ -82,11 +82,11 @@ async def ping(ctx: commands.Context):
 @bot.hybrid_command(name="info", description="shows info (crazy)")
 async def info(ctx: commands.Context):
     embed = discord.Embed(
-        title="About the Boss",
-        description="Moderation bot, special made for Dog Mafia."
-  color=discord.Color.blue()
+        title="About Robert",
+        description="Robert is a moderation bot. He's the boss of the Bitchly Peeps (:bp_blue: :bp_yellow: :bp_pink:), aka the BP Mafia. He can speak English, Spanish, Italian, and Serbian; he has gone round-trip around the world as well."
+  color=discord.Color.green()
     )
-    embed.set_footer(text="baiii :3")
+    embed.set_footer(text="more coming soon maybe")
     try:
         await ctx.send(embed=embed)
     except Exception as e:
@@ -101,41 +101,6 @@ async def info(ctx: commands.Context):
     except Exception as e:
         await ctx.channel.send(f"504 internal server error\n-# {e}")
 
-# AI Stuff
-def query_ollama(prompt):
-    url = "http://127.0.0.1:11434/api/generate"
-    data = {
-        "model": "llama3.2",
-        "prompt": prompt,
-        "stream": True
-    }
-    
-    try:
-        response = requests.post(url, json=data, stream=True)
-    except Exception as e:
-        response = f"who even you (broken rn)"
-        return response
-    if response.status_code == 200:
-        full_response = ""
-        try:
-            for line in response.iter_lines():
-                if line:
-                    chunk = line.decode("utf-8")
-                    print("Raw Chunk:", chunk)  # Debugging step
-                    try:
-                        json_chunk = json.loads(chunk)
-                        full_response += json_chunk.get("response", "")
-                        if json_chunk.get("done", False):
-                            break  # Stop when done
-                    except requests.exceptions.JSONDecodeError:
-                        print("JSON Decode Error:", chunk)
-        finally:
-            response.close()
-        
-        return full_response
-    else:
-        return f"Error: {response.status_code}, {response.text}"
-
 @bot.hybrid_command(name="ban", description="banana no apple peal")
 @discord.app_commands.default_permissions(ban_members=True)
 @app_commands.describe(user="who need bye")
@@ -144,8 +109,8 @@ async def ban(ctx: commands.Context, user: discord.User, reason: str = "lol get 
     db = load_db()
     guild_id = str(ctx.guild.id)
     mod_roles = db.get(guild_id, {}).get("mod_roles", {})
-    mod_role = ctx.guild.get_role(int(mod_roles.get("mod"))) if mod_roles.get("mod") else None
-    admin_role = ctx.guild.get_role(int(mod_roles.get("admin"))) if mod_roles.get("admin") else None
+    mod_role = ctx.guild.get_role(int(mod_roles.get("MODERATOR ACTIONS"))) if mod_roles.get("MODERATOR ACTIONS") else None
+    admin_role = ctx.guild.get_role(int(mod_roles.get("Current Co Owner"))) if mod_roles.get("Current Co Owner") else None
 
     async def get_appeal_message():
         appeal_info = db.get(guild_id, {})
