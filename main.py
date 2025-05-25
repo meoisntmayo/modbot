@@ -83,7 +83,7 @@ async def ping(ctx: commands.Context):
 async def info(ctx: commands.Context):
     embed = discord.Embed(
         title="About Robert",
-        description="Robert is a moderation bot. He's the boss of the Bitchly Peeps (:bp_blue: :bp_yellow: :bp_pink:), aka the BP Mafia. He can speak English, Spanish, Italian, and Serbian; he has gone round-trip around the world as well."
+        description="Robert is a moderation bot. He's the boss of the Bitchly Peeps (<:bp_blue:1376278907568918669> <:bp_yellow:1376278969657065483> <:bp_pink:1376278943421693952>), aka the BP Mafia. He can speak English, Spanish, Italian, and Serbian; he has gone round-trip around the world as well.",
   color=discord.Color.green()
     )
     embed.set_footer(text="more coming soon maybe")
